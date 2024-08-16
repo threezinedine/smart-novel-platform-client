@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CommonLayout from "layout/common";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <Login />,
+		element: <CommonLayout page={<Login />} />,
 	},
 	{
 		path: "/dashboard",

@@ -1,5 +1,6 @@
 import { JSONDict } from "data/styles";
 import axios, { AxiosInstance } from "axios";
+import { ResponseErrorContent } from "./types";
 
 const instance: AxiosInstance = axios.create({
 	baseURL: "http://localhost:8291",
@@ -29,6 +30,10 @@ class Response {
 	isSuccess() {
 		return this.m_StatusCode >= 200 && this.m_StatusCode < 300;
 	}
+
+	getData<T>() {
+		return this.m_Data as T;
+	}
 }
 
 class Client {
@@ -48,10 +53,11 @@ class Client {
 			const response = await this.m_Axios.post(url, body);
 			return new Response(response.status, response.data);
 		} catch (error: any) {
-			return new Response(error.response.request.status, {});
+			return new Response(error.response.status, error.response.data);
 		}
 	}
 }
 
+export type { ResponseErrorContent };
 export { Response };
 export default Client;
