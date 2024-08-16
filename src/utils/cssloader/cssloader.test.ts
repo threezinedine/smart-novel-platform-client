@@ -1,4 +1,4 @@
-import Styles from "../../data/styles";
+import { Styles } from "data/styles";
 import CssLoader from ".";
 
 describe("cssloader test from .module.scss file", () => {

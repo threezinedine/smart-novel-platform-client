@@ -1,4 +1,4 @@
-import Styles from "../../data/styles";
+import { Styles } from "data/styles";
 
 class CssLoader {
 	private styles: Styles;
