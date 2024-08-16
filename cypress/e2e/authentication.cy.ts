@@ -51,6 +51,7 @@ describe("Testing of the Login Page", () => {
 		cy.get("[data-testid=submit]").click();
 
 		cy.url().should("eq", "http://localhost:3000/dashboard");
+		cy.get("[data-testid=toast-success]").should("exist");
 	});
 
 	it("should display the error when the username and password is invalid", () => {

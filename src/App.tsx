@@ -7,7 +7,7 @@ import Dashboard from "pages/Dashboard";
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Home />,
+		element: <CommonLayout page={<Home />} />,
 	},
 	{
 		path: "/login",
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/dashboard",
-		element: <Dashboard />,
+		element: <CommonLayout page={<Dashboard />} />,
 	},
 ]);
 
