@@ -3,6 +3,7 @@ import CommonLayout from "layout/common";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
+import { AuthenticateLayout } from "features/authenticate";
 
 const router = createBrowserRouter([
 	{
@@ -15,7 +16,15 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/dashboard",
-		element: <CommonLayout page={<Dashboard />} />,
+		element: (
+			<CommonLayout
+				page={
+					<AuthenticateLayout>
+						<Dashboard />
+					</AuthenticateLayout>
+				}
+			/>
+		),
 	},
 ]);
 

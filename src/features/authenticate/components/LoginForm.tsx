@@ -5,16 +5,23 @@ import { useNavigate } from "react-router-dom";
 import LoginClient from "../services/LoginClient";
 import { Response, ResponseErrorContent } from "services/request";
 import ToastService from "services/toast";
+import { TokenResponse } from "../data";
+import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 
 const toastService = ToastService.getInstance();
 
 const LoginForm: React.FC = () => {
 	const client = new LoginClient();
 	const navigator = useNavigate();
+
 	const onSubmit = async (data: any) => {
 		const response: Response = await client.login(data);
 
 		if (response.isSuccess()) {
+			AuthenticateLocalStorage.bindToken(
+				response.getData<TokenResponse>()
+			);
+
 			toastService.addMessage({
 				type: "success",
 				message: "Login successfully",

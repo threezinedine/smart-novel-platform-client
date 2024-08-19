@@ -3,4 +3,13 @@ interface LoginModel {
 	password: string;
 }
 
-export type { LoginModel };
+interface TokenResponse {
+	access_token: string;
+	type: string;
+}
+
+interface AuthenState {
+	username: string;
+}
+
+export type { LoginModel, TokenResponse, AuthenState };

@@ -1,5 +1,5 @@
 import { JSONDict } from "data/styles";
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
 import { ResponseErrorContent } from "./types";
 
 const instance: AxiosInstance = axios.create({
@@ -39,12 +39,22 @@ class Response {
 class Client {
 	private m_Axios: AxiosInstance = instance;
 
-	async get(url: string) {
+	async get(url: string, token?: string) {
+		let headers: JSONDict = {};
+
+		if (token) {
+			headers["Authorization"] = `Bearer ${token}`;
+		}
+
 		try {
-			const response = await this.m_Axios.get(url);
+			const response = await this.m_Axios.get(url, { headers });
 			return new Response(response.status, response.data);
 		} catch (error: any) {
-			return new Response(error.response.status, {});
+			if (error instanceof AxiosError) {
+				return new Response(Number(error.code), error.response?.data);
+			} else {
+				return new Response(500, { error: "Internal Server Error" });
+			}
 		}
 	}
 

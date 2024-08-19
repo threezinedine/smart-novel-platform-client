@@ -52,6 +52,7 @@ describe("Testing of the Login Page", () => {
 
 		cy.url().should("eq", "http://localhost:3000/dashboard");
 		cy.get("[data-testid=toast-success]").should("exist");
+		cy.get("[data-testid=unauthorized]").should("not.exist");
 	});
 
 	it("should display the error when the username and password is invalid", () => {
@@ -64,5 +65,35 @@ describe("Testing of the Login Page", () => {
 
 		cy.url().should("eq", "http://localhost:3000/login");
 		cy.get("[data-testid=toast-error]").should("exist");
+	});
+
+	it("should display unauthorized when the token is empty", () => {
+		visit("dashboard");
+		localStorage.removeItem("token");
+
+		cy.get("[data-testid=unauthorized]").should("exist");
+	});
+
+	it("should display unauthorized when the token is expired", () => {
+		cy.visit(`${BASE_URL}/dashboard`, {
+			onBeforeLoad(win) {
+				win.localStorage.setItem(
+					"token",
+					`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzI0MDQyNzA0fQ
+						.-VlpsHnzQe96am0177QXMyclD7H4Dopn50CJvLhhw7g`
+				);
+			},
+		});
+		cy.get("[data-testid=unauthorized]").should("exist");
+
+		visit("login");
+
+		cy.get("[data-testid=username]").type("admin");
+		cy.get("[data-testid=password]").type("admin");
+		cy.get("[data-testid=submit]").click();
+
+		cy.url().should("eq", "http://localhost:3000/dashboard");
+		cy.get("[data-testid=unauthorized]").should("not.exist");
+		cy.get("[data-testid=authorized]").should("exist");
 	});
 });
