@@ -1,5 +1,5 @@
 import { JSONDict } from "data/styles";
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { ResponseErrorContent } from "./types";
 
 const instance: AxiosInstance = axios.create({
@@ -40,14 +40,15 @@ class Client {
 	private m_Axios: AxiosInstance = instance;
 
 	async get(url: string, token?: string) {
-		let headers: JSONDict = {};
+		let config: AxiosRequestConfig = {};
 
 		if (token) {
-			headers["Authorization"] = `Bearer ${token}`;
+			config.headers = {};
+			config.headers.Authorization = `Bearer ${token}`;
 		}
 
 		try {
-			const response = await this.m_Axios.get(url, { headers });
+			const response = await this.m_Axios.get(url, config);
 			return new Response(response.status, response.data);
 		} catch (error: any) {
 			if (error instanceof AxiosError) {

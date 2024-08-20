@@ -18,6 +18,8 @@ const LoginForm: React.FC = () => {
 		const response: Response = await client.login(data);
 
 		if (response.isSuccess()) {
+			console.log(response.getData<TokenResponse>());
+
 			AuthenticateLocalStorage.bindToken(
 				response.getData<TokenResponse>()
 			);

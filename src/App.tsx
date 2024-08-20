@@ -3,6 +3,8 @@ import CommonLayout from "layout/common";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
+import Register from "pages/Register";
+import Admin from "pages/Admin";
 import { AuthenticateLayout } from "features/authenticate";
 
 const router = createBrowserRouter([
@@ -21,6 +23,22 @@ const router = createBrowserRouter([
 				page={
 					<AuthenticateLayout>
 						<Dashboard />
+					</AuthenticateLayout>
+				}
+			/>
+		),
+	},
+	{
+		path: "/register",
+		element: <CommonLayout page={<Register />} />,
+	},
+	{
+		path: "/admin",
+		element: (
+			<CommonLayout
+				page={
+					<AuthenticateLayout roles={["admin"]}>
+						<Admin />
 					</AuthenticateLayout>
 				}
 			/>

@@ -79,12 +79,17 @@ describe("Testing of the Login Page", () => {
 			onBeforeLoad(win) {
 				win.localStorage.setItem(
 					"token",
-					`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzI0MDQyNzA0fQ
+					`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+						.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzI0MDQyNzA0fQ
 						.-VlpsHnzQe96am0177QXMyclD7H4Dopn50CJvLhhw7g`
 				);
 			},
 		});
+		cy.wait(100);
 		cy.get("[data-testid=unauthorized]").should("exist");
+
+		// toast error should be displayed once
+		cy.get("[data-testid=toast-error]").should("have.length", 1);
 
 		visit("login");
 
@@ -93,7 +98,37 @@ describe("Testing of the Login Page", () => {
 		cy.get("[data-testid=submit]").click();
 
 		cy.url().should("eq", "http://localhost:3000/dashboard");
+		cy.wait(100);
 		cy.get("[data-testid=unauthorized]").should("not.exist");
 		cy.get("[data-testid=authorized]").should("exist");
+	});
+
+	it("should can access the admin page when the role is admin", () => {
+		visit("login");
+
+		cy.get("[data-testid=username]").type("admin");
+		cy.get("[data-testid=password]").type("admin");
+		cy.get("[data-testid=submit]").click();
+
+		cy.url().should("include", "dashboard");
+
+		visit("admin");
+		cy.wait(100);
+		cy.get("[data-testid=authorized]").should("exist");
+		cy.get("[data-testid=unauthorized]").should("not.exist");
+	});
+
+	it("should not access the admin page when the role is user", () => {
+		visit("login");
+
+		cy.get("[data-testid=username]").type("threezinedine");
+		cy.get("[data-testid=password]").type("threezinedine");
+		cy.get("[data-testid=submit]").click();
+
+		cy.url().should("include", "dashboard");
+		visit("admin");
+		cy.wait(100);
+		cy.get("[data-testid=unauthorized]").should("exist");
+		cy.get("[data-testid=authorized]").should("not.exist");
 	});
 });

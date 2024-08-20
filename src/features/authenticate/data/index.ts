@@ -10,6 +10,7 @@ interface TokenResponse {
 
 interface AuthenState {
 	username: string;
+	role: string;
 }
 
 export type { LoginModel, TokenResponse, AuthenState };

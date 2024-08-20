@@ -19,6 +19,10 @@ class ToastService {
 	}
 
 	addMessage(message: ToastMessage): void {
+		if (this.containsMessage(message)) {
+			return;
+		}
+
 		this.m_Messages.push(message);
 		this.m_Callback && this.m_Callback();
 
@@ -27,6 +31,12 @@ class ToastService {
 				this.removeMessage(message);
 			}, message.duration);
 		}
+	}
+
+	containsMessage(message: ToastMessage): boolean {
+		return this.m_Messages.some(
+			(m) => m.message === message.message && m.type === message.type
+		);
 	}
 
 	removeMessage(message: ToastMessage): void {

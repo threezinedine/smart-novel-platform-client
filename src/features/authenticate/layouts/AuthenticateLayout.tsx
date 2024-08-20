@@ -1,34 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AuthenticateLayoutProps } from "./AuthenticateLayoutProps";
-import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 import LoginClient from "../services/LoginClient";
 import { AuthenState } from "../data";
+import ToastService from "services/toast";
+import useAuthenticateStore from "../stores/type";
 
 const AuthenticateLayout: React.FC<AuthenticateLayoutProps> = ({
 	children,
+	roles,
 }) => {
-	const [isAuthorized, setIsAuthorized] = useState(
-		AuthenticateLocalStorage.hasToken()
-	);
+	const authenticateStore = useAuthenticateStore();
 
 	const client = new LoginClient();
+	const toast = ToastService.getInstance();
+	let isAuthorized = false;
 
 	client.getInfo().then((response: AuthenState | null) => {
-		console.log(response);
-
 		if (response) {
-			setIsAuthorized(true);
+			!authenticateStore.authorized &&
+				authenticateStore.login(response.username, response.role);
 		} else {
-			setIsAuthorized(false);
+			toast.addMessage({
+				message: "Not authorized",
+				type: "error",
+				duration: 1000,
+			});
+			authenticateStore.authorized && authenticateStore.logout();
 		}
 	});
 
+	if (authenticateStore.authorized && roles) {
+		isAuthorized = roles.includes(authenticateStore.role || "");
+	} else {
+		isAuthorized = true;
+	}
+
 	return (
 		<div>
-			{!isAuthorized && (
+			{(!authenticateStore.authorized || !isAuthorized) && (
 				<div data-testid="unauthorized">Not authorized</div>
 			)}
-			{isAuthorized && <div data-testid="authorized">{children}</div>}
+			{authenticateStore.authorized && isAuthorized && (
+				<div data-testid="authorized">{children}</div>
+			)}
 		</div>
 	);
 };

@@ -20,11 +20,12 @@ class LoginClient extends Client {
 			return null;
 		}
 
-		const response = await this.get("users/info", token);
+		const response = await this.get("users/user-info", token);
 
 		if (!response.isSuccess()) {
 			return null;
 		}
+
 		return response.getData<AuthenState>();
 	}
 }

@@ -2,13 +2,15 @@ class LocalStorage {
 	static loadItem<T>(key: string, defaultValue: T): T {
 		const item = localStorage.getItem(key);
 
-		if (typeof item === "string") {
-			return item as T;
+		if (item === null) {
+			return defaultValue;
 		}
-		if (item) {
-			return JSON.parse(item);
+
+		try {
+			return JSON.parse(item) as T;
+		} catch (e) {
+			return item as unknown as T;
 		}
-		return defaultValue;
 	}
 
 	static setItem<T>(key: string, value: T): void {
