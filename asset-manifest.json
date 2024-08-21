@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/threezinedine/smart-novel-platform-client/static/css/main.e6c13ad2.css",
+    "main.js": "/threezinedine/smart-novel-platform-client/static/js/main.b45d9085.js",
+    "static/js/453.419a5d54.chunk.js": "/threezinedine/smart-novel-platform-client/static/js/453.419a5d54.chunk.js",
+    "index.html": "/threezinedine/smart-novel-platform-client/index.html",
+    "main.e6c13ad2.css.map": "/threezinedine/smart-novel-platform-client/static/css/main.e6c13ad2.css.map",
+    "main.b45d9085.js.map": "/threezinedine/smart-novel-platform-client/static/js/main.b45d9085.js.map",
+    "453.419a5d54.chunk.js.map": "/threezinedine/smart-novel-platform-client/static/js/453.419a5d54.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.b45d9085.js"
+  ]
+}
