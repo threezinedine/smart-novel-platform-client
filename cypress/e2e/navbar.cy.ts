@@ -1,9 +1,10 @@
 /// <reference types="cypress" />
+import { visit } from "../utils";
 
 describe("Navbar", () => {
 	it("renders", () => {
 		localStorage.removeItem("token");
-		cy.visit("http://localhost:3000");
+		visit();
 
 		cy.get("[data-testid=navbar]").should("exist");
 		cy.get("[data-testid=logo").should("exist");
@@ -15,7 +16,7 @@ describe("Navbar", () => {
 
 	it("should navigate when click the buttons", () => {
 		localStorage.removeItem("token");
-		cy.visit("http://localhost:3000");
+		visit();
 
 		cy.get("[data-testid=login-btn").click();
 		cy.url().should("include", "/login");
@@ -31,7 +32,7 @@ describe("Navbar", () => {
 	});
 
 	it("should contain no login and register buttons when logged in", () => {
-		cy.visit("http://localhost:3000/login");
+		visit("login");
 
 		cy.get("[data-testid=username]").type("admin");
 		cy.get("[data-testid=password]").type("admin");

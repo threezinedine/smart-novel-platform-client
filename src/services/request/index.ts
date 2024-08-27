@@ -2,8 +2,10 @@ import { JSONDict } from "data/styles";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { ResponseErrorContent } from "./types";
 
+const host = process.env.REACT_APP_SERVER_URL;
+
 const instance: AxiosInstance = axios.create({
-	baseURL: "http://localhost:8291",
+	baseURL: `${host}/api`,
 });
 
 class Response {

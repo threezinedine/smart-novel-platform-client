@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 import { BASE_URL } from "../constants";
-
-const visit = (url?: string) => {
-	cy.visit(`${BASE_URL}/${url}`);
-};
+import { visit } from "../utils";
 
 describe("Testing of the Login Page", () => {
 	it("should have the title of Login", () => {
@@ -50,7 +47,7 @@ describe("Testing of the Login Page", () => {
 
 		cy.get("[data-testid=submit]").click();
 
-		cy.url().should("eq", "http://localhost:3000/dashboard");
+		cy.url().should("eq", `${BASE_URL}dashboard`);
 		cy.get("[data-testid=toast-success]").should("exist");
 		cy.get("[data-testid=unauthorized]").should("not.exist");
 	});
@@ -63,7 +60,7 @@ describe("Testing of the Login Page", () => {
 
 		cy.get("[data-testid=submit]").click();
 
-		cy.url().should("eq", "http://localhost:3000/login");
+		cy.url().should("eq", `${BASE_URL}login`);
 		cy.get("[data-testid=toast-error]").should("exist");
 	});
 
@@ -75,7 +72,7 @@ describe("Testing of the Login Page", () => {
 	});
 
 	it("should display unauthorized when the token is expired", () => {
-		cy.visit(`${BASE_URL}/dashboard`, {
+		cy.visit(`${BASE_URL}dashboard`, {
 			onBeforeLoad(win) {
 				win.localStorage.setItem(
 					"token",
@@ -97,7 +94,7 @@ describe("Testing of the Login Page", () => {
 		cy.get("[data-testid=password]").type("admin");
 		cy.get("[data-testid=submit]").click();
 
-		cy.url().should("eq", "http://localhost:3000/dashboard");
+		cy.url().should("eq", `${BASE_URL}dashboard`);
 		cy.wait(100);
 		cy.get("[data-testid=unauthorized]").should("not.exist");
 		cy.get("[data-testid=authorized]").should("exist");
