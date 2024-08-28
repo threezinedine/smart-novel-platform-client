@@ -1,0 +1,11 @@
+.button {
+	background-color: red;
+	border: none;
+	padding: 1rem;
+	border-radius: 0.3rem;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}

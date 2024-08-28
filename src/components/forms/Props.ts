@@ -5,9 +5,11 @@ interface InputProps {
 	testId: string;
 	validations?: InputValidationFunc[];
 	type?: string;
+	placeholder?: string;
 }
 
 interface FormProps {
+	title?: string;
 	inputs: InputProps[];
 	submitFunc?: OnSubmitFunc;
 }

@@ -1,0 +1,61 @@
+.form {
+	$padding-top-bottom: 0.5rem;
+
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	gap: 0.5rem;
+	min-width: 30%;
+
+	.title {
+		font-size: 2rem;
+		text-align: center;
+		margin-bottom: 1rem;
+		user-select: none;
+	}
+
+	.input {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+
+		label {
+			text-transform: capitalize;
+			font-style: italic;
+		}
+
+		input {
+			$padding-size: 1.5px;
+
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: $padding-size solid gray;
+			font-size: 1rem;
+			outline: none;
+			padding: $padding-top-bottom 0.8rem;
+
+			&::placeholder {
+				font-style: italic;
+			}
+
+			&:focus {
+				border-bottom: $padding-size solid rgb(1, 248, 1);
+			}
+		}
+
+		.error {
+			font-size: small;
+			color: red;
+		}
+	}
+
+	.submit {
+		color: white;
+		background-color: black;
+		text-align: center;
+		padding: $padding-top-bottom 0.6rem;
+		border-radius: 0.3rem;
+		margin-top: 2rem;
+	}
+}

@@ -1,17 +1,10 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { screen, fireEvent } from "@testing-library/react";
 import Button from ".";
+import renderWithMemoryRoute from "utils/renderWithMemoryRoute";
 
 describe("Button testing", () => {
 	const renderButton = (props: any) =>
-		render(
-			<MemoryRouter initialEntries={["/"]}>
-				<Routes>
-					<Route path="/" element={<Button {...props} />} />
-					<Route path="/dashboard" element={<div>Dashboard</div>} />
-				</Routes>
-			</MemoryRouter>
-		);
+		renderWithMemoryRoute(<Button {...props} />);
 
 	it("should call the onClick function when click the button", () => {
 		let callback = jest.fn();
@@ -48,3 +41,5 @@ describe("Button testing", () => {
 		expect(screen.getByTestId("test")).toBeInTheDocument();
 	});
 });
+
+export default renderWithMemoryRoute;

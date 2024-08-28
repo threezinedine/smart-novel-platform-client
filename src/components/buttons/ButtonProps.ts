@@ -3,6 +3,7 @@ interface ButtonProps {
 	onClick?: () => void;
 	to?: string;
 	testId?: string;
+	className?: string;
 }
 
 export type { ButtonProps };

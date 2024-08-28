@@ -7,9 +7,9 @@ class CssLoader {
 		this.styles = styles;
 	}
 
-	public load(...names: (string | null)[]): string {
-		return names.reduce((acc: string, name: string | null) => {
-			if (name === "" || name === null) return acc;
+	public load(...names: (string | null | undefined)[]): string {
+		return names.reduce((acc: string, name: string | null | undefined) => {
+			if (name === "" || name === null || name === undefined) return acc;
 			if (this.styles[name] === undefined) {
 				if (acc === "") {
 					return name;

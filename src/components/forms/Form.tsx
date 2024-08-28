@@ -1,8 +1,13 @@
 import React from "react";
 import FormProps from "./Props";
 import { FormData, FormError } from "./types";
+import CssLoader from "utils/cssloader";
+import styles from "./Form.module.scss";
+import Button from "components/buttons";
 
-const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
+const loader = new CssLoader(styles);
+
+const Form: React.FC<FormProps> = ({ title, inputs, submitFunc }) => {
 	const [values, setValues] = React.useState(
 		inputs.reduce(
 			(acc, input) => ({ ...acc, [input.name]: "" }),
@@ -46,14 +51,23 @@ const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
 	};
 
 	return (
-		<div>
+		<div className={loader.load("form")}>
+			{title && (
+				<div data-testid="form-title" className={loader.load("title")}>
+					{title}
+				</div>
+			)}
 			{inputs.map((input, index) => {
 				return (
-					<div key={index}>
+					<div key={index} className={loader.load("input")}>
+						<label>{input.name}</label>
 						<input
 							data-testid={input.testId}
 							type={input.type || "text"}
 							value={values[input.name] || ""}
+							placeholder={
+								input.placeholder || "Enter this field"
+							}
 							onChange={(e) =>
 								setValues({
 									...values,
@@ -63,15 +77,23 @@ const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
 							onBlur={() => onBlur(input.name)}
 						/>
 						{errors[input.name] && (
-							<div data-testid="error">{errors[input.name]}</div>
+							<div
+								data-testid="error"
+								className={loader.load("error")}
+							>
+								{errors[input.name]}
+							</div>
 						)}
 					</div>
 				);
 			})}
 
-			<div data-testid="submit" onClick={onSubmit}>
-				Submit
-			</div>
+			<Button
+				text="Submit"
+				testId="submit"
+				onClick={onSubmit}
+				className={loader.load("submit")}
+			/>
 		</div>
 	);
 };

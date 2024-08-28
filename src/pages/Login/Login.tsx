@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 import { LoginForm } from "features/authenticate";
+import styles from "./Login.module.scss";
+import CssLoader from "utils/cssloader";
+
+const loader = new CssLoader(styles);
 
 const Login: React.FC = () => {
 	useEffect(() => {
@@ -7,7 +11,8 @@ const Login: React.FC = () => {
 	});
 
 	return (
-		<div>
+		<div className={loader.load("container")}>
+			<div className={loader.load("title")}>Login</div>
 			<LoginForm />
 		</div>
 	);

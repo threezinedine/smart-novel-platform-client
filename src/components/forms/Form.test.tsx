@@ -1,12 +1,14 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import Form from ".";
 import { InputProps } from "./Props";
 import { RequiredRule, MinLengthRule, MatchFieldRule } from "./rules";
 import { OnSubmitFunc } from "./types";
+import renderWithMemoryRoute from "utils/renderWithMemoryRoute";
 
 describe("Form testing", () => {
 	const submitFunc: OnSubmitFunc = jest.fn();
 	const error = "This field is required";
+	const title = "Form";
 
 	const inputs: InputProps[] = [
 		{
@@ -32,12 +34,13 @@ describe("Form testing", () => {
 	];
 
 	it("should have the list of inputs for list of incomming props", () => {
-		render(<Form inputs={inputs} />);
+		renderWithMemoryRoute(<Form inputs={inputs} title={title} />);
 
 		const usernameInput = screen.getByTestId("username");
 		const passwordInput = screen.getByTestId("password");
 		const submitButton = screen.getByTestId("submit");
 
+		expect(screen.getByTestId("form-title")).toHaveTextContent(title);
 		expect(usernameInput).toBeInTheDocument();
 		expect(usernameInput.getAttribute("type")).toBe("text");
 
@@ -47,8 +50,14 @@ describe("Form testing", () => {
 		expect(submitButton).toBeInTheDocument();
 	});
 
+	it("should not contain the title when the title is not provided", () => {
+		renderWithMemoryRoute(<Form inputs={inputs} />);
+
+		expect(screen.queryByTestId("form-title")).toBeNull();
+	});
+
 	it("should print the error when hover and blur the input with required validation", () => {
-		render(<Form inputs={inputs} />);
+		renderWithMemoryRoute(<Form inputs={inputs} />);
 
 		const usernameInput = screen.getByTestId("username");
 		fireEvent.focus(usernameInput);
@@ -58,7 +67,7 @@ describe("Form testing", () => {
 	});
 
 	it("should show validate all inputs when click submit", () => {
-		render(<Form inputs={inputs} />);
+		renderWithMemoryRoute(<Form inputs={inputs} />);
 		fireEvent.click(screen.getByTestId("submit"));
 
 		const errorElements = screen.getAllByText(error);
@@ -66,7 +75,7 @@ describe("Form testing", () => {
 	});
 
 	it("should remove error when input is valid", () => {
-		render(<Form inputs={inputs} />);
+		renderWithMemoryRoute(<Form inputs={inputs} />);
 
 		const usernameInput = screen.getByTestId("username");
 
@@ -76,7 +85,7 @@ describe("Form testing", () => {
 	});
 
 	it("should cannot submit where there is an error", () => {
-		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+		renderWithMemoryRoute(<Form inputs={inputs} submitFunc={submitFunc} />);
 
 		fireEvent.input(screen.getByTestId("username"), "testing");
 		fireEvent.click(screen.getByTestId("submit"));
@@ -85,7 +94,7 @@ describe("Form testing", () => {
 	});
 
 	it("should call the submit function when all inputs are valid", () => {
-		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+		renderWithMemoryRoute(<Form inputs={inputs} submitFunc={submitFunc} />);
 
 		fireEvent.change(screen.getByTestId("username"), {
 			target: { value: "testing" },
@@ -106,7 +115,7 @@ describe("Form testing", () => {
 	});
 
 	it("should not raise error when must match field matches", () => {
-		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+		renderWithMemoryRoute(<Form inputs={inputs} submitFunc={submitFunc} />);
 
 		fireEvent.change(screen.getByTestId("password"), {
 			target: { value: "password" },
@@ -120,7 +129,7 @@ describe("Form testing", () => {
 	});
 
 	it("should raise error when must match field does not match", () => {
-		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+		renderWithMemoryRoute(<Form inputs={inputs} submitFunc={submitFunc} />);
 
 		fireEvent.change(screen.getByTestId("password"), {
 			target: { value: "password" },

@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CommonLayout from "layout/common";
 import Home from "pages/Home";
-import Login from "pages/Login";
+import Login from "pages/Login/Login";
 import Dashboard from "pages/Dashboard";
-import Register from "pages/Register";
+import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
 import { AuthenticateLayout } from "features/authenticate";
 

@@ -37,22 +37,26 @@ const RegisterForm: React.FC = () => {
 
 	return (
 		<Form
+			title="Register"
 			inputs={[
 				{
 					name: "username",
 					testId: "username",
 					validations: [LengthRangeRule(8, 30)],
+					placeholder: "Enter the username",
 				},
 				{
 					name: "password",
 					testId: "password",
 					type: "password",
 					validations: [LengthRangeRule(8, 30)],
+					placeholder: "Enter the password",
 				},
 				{
 					name: "valid",
 					testId: "password-valid",
 					validations: [RequiredRule, MatchFieldRule("password")],
+					placeholder: "Enter the validate password",
 				},
 			]}
 			submitFunc={onSubmit}
