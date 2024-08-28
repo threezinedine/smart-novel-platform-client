@@ -37,6 +37,7 @@ const LoginForm: React.FC = () => {
 
 	return (
 		<Form
+			title="Login"
 			inputs={[
 				{
 					name: "username",

@@ -6,6 +6,7 @@ import Dashboard from "pages/Dashboard";
 import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
 import { AuthenticateLayout } from "features/authenticate";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
 	{
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+	useEffect(() => {
+		document.querySelector("body")?.setAttribute("data-theme", "light");
+	});
+
 	return <RouterProvider router={router} />;
 }
 

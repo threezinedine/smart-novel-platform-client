@@ -12,7 +12,6 @@ const Login: React.FC = () => {
 
 	return (
 		<div className={loader.load("container")}>
-			<div className={loader.load("title")}>Login</div>
 			<LoginForm />
 		</div>
 	);
