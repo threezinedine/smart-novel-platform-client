@@ -2,7 +2,7 @@ import React from "react";
 import Form from "components/forms";
 import { RequiredRule } from "components/forms/rules";
 import { useNavigate } from "react-router-dom";
-import LoginClient from "../services/LoginClient";
+import AuthenticateClient from "../services/AuthenticateClient";
 import { Response, ResponseErrorContent } from "services/request";
 import ToastService from "services/toast";
 import { TokenResponse } from "../data";
@@ -11,7 +11,7 @@ import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 const toastService = ToastService.getInstance();
 
 const LoginForm: React.FC = () => {
-	const client = new LoginClient();
+	const client = new AuthenticateClient();
 	const navigator = useNavigate();
 
 	const onSubmit = async (data: any) => {

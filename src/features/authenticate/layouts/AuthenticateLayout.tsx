@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthenticateLayoutProps } from "./AuthenticateLayoutProps";
-import LoginClient from "../services/LoginClient";
+import LoginClient from "../services/AuthenticateClient";
 import { AuthenState } from "../data";
 import ToastService from "services/toast";
 import useAuthenticateStore from "../stores/type";

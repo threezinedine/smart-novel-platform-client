@@ -3,11 +3,11 @@ import { FormData } from "components/forms";
 import { AuthenState, LoginModel } from "../data";
 import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 
-class LoginClient extends Client {
+class AuthenticateClient extends Client {
 	async login(data: FormData) {
 		const body: LoginModel = {
-			username: data.username,
-			password: data.password,
+			username: data.username || "",
+			password: data.password || "",
 		};
 
 		return await this.post<LoginModel>("users/login", body);
@@ -28,6 +28,15 @@ class LoginClient extends Client {
 
 		return response.getData<AuthenState>();
 	}
+
+	async register(data: FormData) {
+		const body: LoginModel = {
+			username: data.username || "",
+			password: data.password || "",
+		};
+
+		return await this.post<LoginModel>("users/register", body);
+	}
 }
 
-export default LoginClient;
+export default AuthenticateClient;
