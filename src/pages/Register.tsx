@@ -1,7 +1,8 @@
+import RegisterForm from "features/authenticate/components/RegisterForm";
 import React from "react";
 
 const Register: React.FC = () => {
-	return <div>Register Page</div>;
+	return <RegisterForm />;
 };
 
 export default Register;

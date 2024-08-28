@@ -10,7 +10,12 @@ class CssLoader {
 	public load(...names: (string | null)[]): string {
 		return names.reduce((acc: string, name: string | null) => {
 			if (name === "" || name === null) return acc;
-			if (this.styles[name] === undefined) return acc;
+			if (this.styles[name] === undefined) {
+				if (acc === "") {
+					return name;
+				}
+				return `${acc} ${name}`;
+			}
 			if (acc === "") {
 				return this.styles[name];
 			}

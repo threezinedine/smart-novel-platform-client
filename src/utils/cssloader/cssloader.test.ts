@@ -45,15 +45,21 @@ describe("cssloader test from .module.scss file", () => {
 		expect(result).toBe(`${styles.test} ${styles.css}`);
 	});
 
-	it("should ignore the valid key but non-existing css name", () => {
+	it("should keep the valid key but non-existing css name", () => {
 		const result: string = loader.load("test", "non-existing-css");
 
-		expect(result).toBe(styles.test);
+		expect(result).toBe(`${styles.test} non-existing-css`);
 	});
 
-	it("should ignore the non-existing key at the beggining", () => {
+	it("should keep the non-existing key at the beggining", () => {
 		const result: string = loader.load("non-existing-css", "test");
 
-		expect(result).toBe(styles.test);
+		expect(result).toBe(`non-existing-css ${styles.test}`);
+	});
+
+	it("should keep the non-existing key at the middle", () => {
+		const result: string = loader.load("test", "non-existing-css", "css");
+
+		expect(result).toBe(`${styles.test} non-existing-css ${styles.css}`);
 	});
 });

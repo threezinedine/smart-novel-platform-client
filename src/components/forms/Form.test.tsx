@@ -1,34 +1,17 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Form from ".";
-import { StringValidationFunc } from "data/styles";
 import { InputProps, OnSubmitFunc } from "./Props";
+import { RequiredRule, MinLengthRule, MatchFieldRule } from "./rules";
 
 describe("Form testing", () => {
 	const submitFunc: OnSubmitFunc = jest.fn();
 	const error = "This field is required";
-	const Required: StringValidationFunc = (value) => {
-		if (!value) {
-			return error;
-		}
-		return null;
-	};
-
-	const MaxLength: (maxLength: number) => StringValidationFunc = (
-		maxLength
-	) => {
-		return (value) => {
-			if (value.length > maxLength) {
-				return `This field must be less than ${maxLength} characters`;
-			}
-			return null;
-		};
-	};
 
 	const inputs: InputProps[] = [
 		{
 			name: "username",
 			testId: "username",
-			validations: [Required],
+			validations: [RequiredRule],
 		},
 		{
 			name: "password",
@@ -36,9 +19,14 @@ describe("Form testing", () => {
 			type: "password",
 		},
 		{
+			name: "valid",
+			testId: "password-valid",
+			validations: [MatchFieldRule("password")],
+		},
+		{
 			name: "checkLessThan",
 			testId: "checkLessThan",
-			validations: [MaxLength(5), Required],
+			validations: [MinLengthRule(5)],
 		},
 	];
 
@@ -102,15 +90,46 @@ describe("Form testing", () => {
 			target: { value: "testing" },
 		});
 		fireEvent.change(screen.getByTestId("checkLessThan"), {
-			target: { value: "tes" },
+			target: { value: "testingminlength" },
 		});
+		fireEvent.blur(screen.getByTestId("checkLessThan"));
 		fireEvent.click(screen.getByTestId("submit"));
 
 		// should be call with the value of the inputs
 		expect(submitFunc).toBeCalledWith({
 			username: "testing",
 			password: "",
-			checkLessThan: "tes",
+			checkLessThan: "testingminlength",
+			valid: "",
 		});
+	});
+
+	it("should not raise error when must match field matches", () => {
+		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+
+		fireEvent.change(screen.getByTestId("password"), {
+			target: { value: "password" },
+		});
+
+		fireEvent.change(screen.getByTestId("password-valid"), {
+			target: { value: "password" },
+		});
+
+		expect(screen.queryByTestId("error")).toBeNull();
+	});
+
+	it("should raise error when must match field does not match", () => {
+		render(<Form inputs={inputs} submitFunc={submitFunc} />);
+
+		fireEvent.change(screen.getByTestId("password"), {
+			target: { value: "password" },
+		});
+
+		fireEvent.change(screen.getByTestId("password-valid"), {
+			target: { value: "password-wrong" },
+		});
+		fireEvent.blur(screen.getByTestId("password-valid"));
+
+		expect(screen.getByTestId("error")).toBeInTheDocument();
 	});
 });

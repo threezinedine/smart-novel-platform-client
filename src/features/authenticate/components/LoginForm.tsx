@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "components/forms";
-import RequiredRule from "./RequireRule";
+import { RequiredRule } from "components/forms/rules";
 import { useNavigate } from "react-router-dom";
 import LoginClient from "../services/LoginClient";
 import { Response, ResponseErrorContent } from "services/request";
@@ -18,8 +18,6 @@ const LoginForm: React.FC = () => {
 		const response: Response = await client.login(data);
 
 		if (response.isSuccess()) {
-			console.log(response.getData<TokenResponse>());
-
 			AuthenticateLocalStorage.bindToken(
 				response.getData<TokenResponse>()
 			);

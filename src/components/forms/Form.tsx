@@ -1,53 +1,46 @@
-import React, { useRef, useState } from "react";
-import FormProps, {
-	ErrorType,
-	InputComponentRef,
-	ValueType,
-	Data,
-} from "./Props";
-import Input from "./Input";
-
-interface InputState {
-	name: string;
-	value: ValueType;
-	error: ErrorType;
-}
-
-interface InputStateDict {
-	[key: string]: InputState;
-}
+import React from "react";
+import FormProps, { Data, Error } from "./Props";
 
 const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
-	const [states, setStates] = useState<InputStateDict>(
-		inputs.reduce((acc, input) => {
-			acc[input.name] = {
-				name: input.name,
-				value: "",
-				error: null,
-			};
-			return acc;
-		}, {} as InputStateDict)
+	const [values, setValues] = React.useState(
+		inputs.reduce(
+			(acc, input) => ({ ...acc, [input.name]: "" }),
+			{} as Data
+		)
+	);
+	const [errors, setErrors] = React.useState(
+		inputs.reduce(
+			(acc, input) => ({ ...acc, [input.name]: "" }),
+			{} as Error
+		)
 	);
 
-	const inputRefs = useRef<Array<InputComponentRef | null>>(
-		Array(inputs.length).fill(null)
-	);
+	const onBlur = (name: string) => {
+		const input = inputs.find((input) => input.name === name);
+
+		const err = input?.validations
+			?.map((validation) => validation(values[name], values))
+			.filter((error) => error)[0];
+
+		setErrors({ ...errors, [name]: err || "" });
+	};
 
 	const onSubmit = () => {
-		inputRefs.current.forEach((inputRef) => {
-			if (inputRef) {
-				inputRef.validateFunction();
-			}
+		const validatedErrors = JSON.parse(JSON.stringify(errors));
+		inputs.forEach((input) => {
+			validatedErrors[input.name] = input.validations
+				?.map((validation) => validation(values[input.name], values))
+				.filter((error) => error)[0];
 		});
 
-		if (Object.values(states).every((input) => input.error == null)) {
-			submitFunc &&
-				submitFunc(
-					Object.values(states).reduce((acc, input) => {
-						acc[input.name] = input.value;
-						return acc;
-					}, {} as Data)
-				);
+		if (
+			Object.values(validatedErrors).every(
+				(error) => error === null || error === undefined || error === ""
+			)
+		) {
+			submitFunc && submitFunc(values);
+		} else {
+			setErrors(validatedErrors);
 		}
 	};
 
@@ -55,21 +48,23 @@ const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
 		<div>
 			{inputs.map((input, index) => {
 				return (
-					<Input
-						key={index}
-						{...input}
-						ref={(el) => (inputRefs.current[index] = el)}
-						value={states[input.name].value}
-						setValue={(value) => {
-							states[input.name].value = value;
-							setStates({ ...states });
-						}}
-						error={states[input.name].error}
-						setError={(error) => {
-							states[input.name].error = error;
-							setStates({ ...states });
-						}}
-					/>
+					<div key={index}>
+						<input
+							data-testid={input.testId}
+							type={input.type || "text"}
+							value={values[input.name] || ""}
+							onChange={(e) =>
+								setValues({
+									...values,
+									[input.name]: e.target.value,
+								})
+							}
+							onBlur={() => onBlur(input.name)}
+						/>
+						{errors[input.name] && (
+							<div data-testid="error">{errors[input.name]}</div>
+						)}
+					</div>
 				);
 			})}
 
