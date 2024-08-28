@@ -1,17 +1,18 @@
 import React from "react";
-import FormProps, { Data, Error } from "./Props";
+import FormProps from "./Props";
+import { FormData, FormError } from "./types";
 
 const Form: React.FC<FormProps> = ({ inputs, submitFunc }) => {
 	const [values, setValues] = React.useState(
 		inputs.reduce(
 			(acc, input) => ({ ...acc, [input.name]: "" }),
-			{} as Data
+			{} as FormData
 		)
 	);
 	const [errors, setErrors] = React.useState(
 		inputs.reduce(
 			(acc, input) => ({ ...acc, [input.name]: "" }),
-			{} as Error
+			{} as FormError
 		)
 	);
 

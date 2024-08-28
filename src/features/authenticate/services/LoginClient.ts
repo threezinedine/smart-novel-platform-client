@@ -1,10 +1,10 @@
 import Client from "services/request";
-import { Data } from "components/forms";
+import { FormData } from "components/forms";
 import { AuthenState, LoginModel } from "../data";
 import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 
 class LoginClient extends Client {
-	async login(data: Data) {
+	async login(data: FormData) {
 		const body: LoginModel = {
 			username: data.username,
 			password: data.password,

@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Form from ".";
-import { InputProps, OnSubmitFunc } from "./Props";
+import { InputProps } from "./Props";
 import { RequiredRule, MinLengthRule, MatchFieldRule } from "./rules";
+import { OnSubmitFunc } from "./types";
 
 describe("Form testing", () => {
 	const submitFunc: OnSubmitFunc = jest.fn();
