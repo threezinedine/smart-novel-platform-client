@@ -12,6 +12,7 @@ const Button: React.FC<ButtonProps> = ({
 	to,
 	testId,
 	className,
+	secondary,
 }) => {
 	if (!text) {
 		text = "Button";
@@ -28,7 +29,11 @@ const Button: React.FC<ButtonProps> = ({
 		<button
 			data-testid={testId}
 			onClick={handleClick}
-			className={loader.load("button", className)}
+			className={loader.load(
+				"button",
+				secondary ? "secondary" : "",
+				className
+			)}
 		>
 			{text}
 		</button>

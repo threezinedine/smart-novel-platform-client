@@ -93,6 +93,7 @@ const Form: React.FC<FormProps> = ({ title, inputs, submitFunc }) => {
 				testId="submit"
 				onClick={onSubmit}
 				className={loader.load("submit")}
+				secondary
 			/>
 		</div>
 	);

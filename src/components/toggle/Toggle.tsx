@@ -2,11 +2,33 @@ import React from "react";
 import { ToggleProps } from "./Props";
 import styles from "./Toggle.module.scss";
 import CssLoader from "utils/cssloader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const loader = new CssLoader(styles);
 
-const Toggle: React.FC<ToggleProps> = ({ value, onChange, testId }) => {
+const Toggle: React.FC<ToggleProps> = ({
+	value,
+	onChange,
+	testId,
+	onIcon,
+	offIcon,
+}) => {
 	const [state, setState] = React.useState(value || false);
+
+	const onIconItem = (
+		<FontAwesomeIcon
+			icon={onIcon ? onIcon : faCheck}
+			className={loader.load("checkmark")}
+		/>
+	);
+
+	const offIconItem = (
+		<FontAwesomeIcon
+			icon={offIcon ? offIcon : faXmark}
+			className={loader.load("cross")}
+		/>
+	);
 
 	return (
 		<div
@@ -21,11 +43,12 @@ const Toggle: React.FC<ToggleProps> = ({ value, onChange, testId }) => {
 				className={loader.load("input")}
 				type="checkbox"
 				checked={state}
+				onChange={() => {}}
 				{...{ "data-testid": value ? "toggle-on" : "toggle-off" }}
 			/>
 			<div className={loader.load("slider")}>
 				<div className={loader.load("circle")}>
-					<svg
+					{/* <svg
 						className={loader.load("cross")}
 						viewBox="0 0 365.696 365.696"
 						y="0"
@@ -42,8 +65,10 @@ const Toggle: React.FC<ToggleProps> = ({ value, onChange, testId }) => {
 								d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25zm0 0"
 							></path>
 						</g>
-					</svg>
-					<svg
+					</svg> */}
+					{onIconItem}
+					{offIconItem}
+					{/* <svg
 						className={loader.load("checkmark")}
 						viewBox="0 0 24 24"
 						y="0"
@@ -60,7 +85,7 @@ const Toggle: React.FC<ToggleProps> = ({ value, onChange, testId }) => {
 								d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"
 							></path>
 						</g>
-					</svg>
+					</svg> */}
 				</div>
 			</div>
 		</div>

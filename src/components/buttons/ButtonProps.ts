@@ -4,6 +4,7 @@ interface ButtonProps {
 	to?: string;
 	testId?: string;
 	className?: string;
+	secondary?: boolean;
 }
 
 export type { ButtonProps };

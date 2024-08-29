@@ -1,11 +1,22 @@
 .button {
-	background-color: red;
 	border: none;
 	padding: 1rem;
 	border-radius: 0.3rem;
 	cursor: pointer;
+	user-select: none;
+	background-color: var(--color-1);
+	color: var(--color-10);
 
 	&:hover {
-		opacity: 0.8;
+		background-color: var(--color-2);
+	}
+
+	&.secondary {
+		background-color: var(--color-9);
+		color: var(--color-2);
+
+		&:hover {
+			background-color: var(--color-8);
+		}
 	}
 }

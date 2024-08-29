@@ -31,7 +31,7 @@
 			border-left: none;
 			border-right: none;
 			border-bottom: $padding-size solid gray;
-			background-color: var(--body-background-color);
+			background-color: var(--color-1);
 			font-size: 1rem;
 			outline: none;
 			padding: $padding-top-bottom 0.8rem;
@@ -52,8 +52,6 @@
 	}
 
 	.submit {
-		color: white;
-		background-color: black;
 		text-align: center;
 		padding: $padding-top-bottom 0.6rem;
 		border-radius: 0.3rem;
