@@ -6,6 +6,7 @@ interface ToggleProps {
 	testId?: string;
 	onIcon?: IconDefinition;
 	offIcon?: IconDefinition;
+	className?: string;
 }
 
 export type { ToggleProps };

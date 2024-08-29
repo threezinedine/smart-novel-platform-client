@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 
 interface AuthenticateState {
 	authorized: boolean;
@@ -21,6 +22,7 @@ const useAuthenticateStore = create<AuthenticateStore>((set) => ({
 		}),
 	logout: () =>
 		set((state) => {
+			AuthenticateLocalStorage.clearToken();
 			return {
 				username: undefined,
 				role: undefined,
@@ -30,3 +32,4 @@ const useAuthenticateStore = create<AuthenticateStore>((set) => ({
 }));
 
 export default useAuthenticateStore;
+export type { AuthenticateStore };

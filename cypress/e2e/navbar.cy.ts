@@ -42,13 +42,16 @@ describe("Navbar", () => {
 		cy.get("[data-testid=login-btn]").should("not.exist");
 	});
 
-	it("should have the light mode theme at the start", () => {
+	it("should have the light mode theme at the start and save the configuration", () => {
 		visit();
 		localStorage.removeItem("theme");
 
 		cy.get("body").should("have.attr", "data-theme", "light");
 		cy.get("[data-testid=theme-toggle]").click();
 
+		cy.get("body").should("have.attr", "data-theme", "dark");
+
+		visit();
 		cy.get("body").should("have.attr", "data-theme", "dark");
 	});
 });

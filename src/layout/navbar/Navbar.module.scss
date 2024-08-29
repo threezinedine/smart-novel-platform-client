@@ -1,8 +1,36 @@
 .nav {
+	$slider-height: 45px;
+	$slider-width: 4px;
+	$slider-color: var(--color-4);
+	$gap: 1rem;
+
 	display: flex;
 	align-items: center;
-	padding: 1rem;
+	padding: 1rem 0;
+	margin-bottom: 1rem;
 
 	.nav-link {
+		& + .nav-link {
+			margin-left: $gap;
+		}
+	}
+
+	.slider {
+		border-right: $slider-width solid $slider-color;
+		flex: 1;
+		height: $slider-height;
+		margin-right: 1rem;
+	}
+
+	.authen {
+		display: flex;
+		align-items: center;
+		margin-left: $gap;
+		gap: $gap;
+
+		.user {
+			user-select: none;
+			cursor: pointer;
+		}
 	}
 }

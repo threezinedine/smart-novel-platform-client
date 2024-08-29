@@ -28,6 +28,7 @@ class ToastService {
 
 		if (message.duration) {
 			setTimeout(() => {
+				console.log("removing message", message, this.messages);
 				this.removeMessage(message);
 			}, message.duration);
 		}
@@ -42,6 +43,8 @@ class ToastService {
 	removeMessage(message: ToastMessage): void {
 		const index = this.m_Messages.indexOf(message);
 		this.m_Messages.splice(index, 1);
+
+		this.m_Callback && this.m_Callback();
 	}
 }
 

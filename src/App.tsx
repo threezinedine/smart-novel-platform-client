@@ -48,10 +48,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	useEffect(() => {
-		document.querySelector("body")?.setAttribute("data-theme", "light");
-	});
-
 	return <RouterProvider router={router} />;
 }
 

@@ -50,6 +50,16 @@ describe("Testing of the Login Page", () => {
 		cy.url().should("eq", `${BASE_URL}dashboard`);
 		cy.get("[data-testid=toast-success]").should("exist");
 		cy.get("[data-testid=unauthorized]").should("not.exist");
+		cy.get("[data-testid=authorized]").should("exist");
+
+		cy.get("[data-testid=logout-btn]").click();
+		cy.url().should("include", "login");
+		cy.get("[data-testid=toast-success]").should("exist");
+
+		visit("dashboard");
+		cy.wait(100);
+		cy.get("[data-testid=unauthorized]").should("exist");
+		cy.get("[data-testid=authorized]").should("not.exist");
 	});
 
 	it("should display the error when the username and password is invalid", () => {
