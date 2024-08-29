@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CommonLayout from "layout/common";
-import Home from "pages/Home";
+import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
 import Dashboard from "pages/Dashboard";
 import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
 import { AuthenticateLayout } from "features/authenticate";
-import { useEffect } from "react";
+import Profile from "pages/Profile/Profile";
 
 const router = createBrowserRouter([
 	{
@@ -40,6 +40,18 @@ const router = createBrowserRouter([
 				page={
 					<AuthenticateLayout roles={["admin"]}>
 						<Admin />
+					</AuthenticateLayout>
+				}
+			/>
+		),
+	},
+	{
+		path: "/profile",
+		element: (
+			<CommonLayout
+				page={
+					<AuthenticateLayout>
+						<Profile />
 					</AuthenticateLayout>
 				}
 			/>

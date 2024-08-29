@@ -25,6 +25,7 @@ const LoginForm: React.FC = () => {
 			toastService.addMessage({
 				type: "success",
 				message: "Login successfully",
+				duration: 1000,
 			});
 			navigator("/dashboard");
 		} else {

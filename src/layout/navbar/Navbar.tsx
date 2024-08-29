@@ -9,6 +9,8 @@ import styles from "./Navbar.module.scss";
 import CssLoader from "utils/cssloader";
 import { useNavigate } from "react-router-dom";
 import ToastService from "services/toast";
+import { ReactComponent as Logo } from "assets/images/logo.svg";
+import { NavlinkInfo } from "./types";
 
 const loader = new CssLoader(styles);
 const toast = ToastService.getInstance();
@@ -27,20 +29,40 @@ const Navbar: React.FC<NavbarProps> = () => {
 		navigate("/login");
 	};
 
+	const links: NavlinkInfo[] = [
+		{
+			name: "Home",
+			path: "/",
+		},
+		{
+			name: "Dashboard",
+			path: "/dashboard",
+		},
+		{
+			name: "About",
+			path: "/about",
+		},
+	];
+
 	return (
 		<nav data-testid="navbar" className={loader.load("nav")}>
-			<Button
-				to="/"
-				text="Logo"
-				testId="logo"
-				className={loader.load("nav-link")}
-			/>
-			<Button
+			<div data-testid="logo" onClick={() => navigate("/")}>
+				<Logo className={loader.load("logo")} />
+			</div>
+			{links.map((link) => (
+				<Button
+					to={link.path}
+					text={link.name}
+					testId={link.name}
+					className={loader.load("nav-link")}
+				/>
+			))}
+			{/* <Button
 				to="/"
 				text="Home"
 				testId="home"
 				className={loader.load("nav-link")}
-			/>
+			/> */}
 
 			<div className={loader.load("slider")} />
 
@@ -66,7 +88,11 @@ const Navbar: React.FC<NavbarProps> = () => {
 				)}
 				{authState.authorized && (
 					<div className={loader.load("authen")}>
-						<div className={loader.load("user")}>
+						<div
+							data-testid="user"
+							onClick={() => navigate("/profile")}
+							className={loader.load("user")}
+						>
 							{authState.username}
 						</div>
 						<Button

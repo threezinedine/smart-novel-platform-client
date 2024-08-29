@@ -40,6 +40,9 @@ describe("Navbar", () => {
 		cy.get("[data-testid=submit").click();
 		cy.wait(100);
 		cy.get("[data-testid=login-btn]").should("not.exist");
+
+		cy.get("[data-testid=user").click();
+		cy.url().should("include", "/profile");
 	});
 
 	it("should have the light mode theme at the start and save the configuration", () => {
