@@ -5,11 +5,7 @@ import CssLoader from "utils/cssloader";
 const loader = new CssLoader(styles);
 
 const Home: React.FC = () => {
-	return (
-		<div className={loader.load("home")}>
-			<h1>Home Page</h1>
-		</div>
-	);
+	return <div className={loader.load("home")}>Home page</div>;
 };
 
 export default Home;

@@ -32,7 +32,9 @@
 			border-right: none;
 			border-bottom: $padding-size solid gray;
 			background-color: var(--color-1);
+			color: var(--color-8);
 			font-size: 1rem;
+			font-style: italic;
 			outline: none;
 			padding: $padding-top-bottom 0.8rem;
 
@@ -41,7 +43,7 @@
 			}
 
 			&:focus {
-				border-bottom: $padding-size solid rgb(1, 248, 1);
+				border-bottom: $padding-size solid var(--color-6);
 			}
 		}
 

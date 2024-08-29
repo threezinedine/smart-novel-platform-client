@@ -1,0 +1,41 @@
+.toast {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	bottom: 0;
+	right: 0;
+	padding: 2rem;
+	user-select: none;
+	gap: 1rem;
+	width: 17rem;
+
+	.toast-message {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.5rem 1rem;
+		border-radius: 0.3rem;
+		color: var(--color-1);
+
+		.icon {
+			$size: 1rem;
+
+			padding: 0.4rem;
+			width: $size;
+			height: $size;
+			color: var(--color-10);
+			border-radius: 50%;
+			background-color: #fff;
+		}
+
+		.message {
+			flex: 1;
+		}
+
+		.toast-close {
+			cursor: pointer;
+			padding: 0.1rem;
+		}
+	}
+}

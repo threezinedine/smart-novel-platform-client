@@ -33,14 +33,17 @@ const Navbar: React.FC<NavbarProps> = () => {
 		{
 			name: "Home",
 			path: "/",
+			testId: "home",
 		},
 		{
 			name: "Dashboard",
 			path: "/dashboard",
+			testId: "dashboard",
 		},
 		{
 			name: "About",
 			path: "/about",
+			testId: "about",
 		},
 	];
 
@@ -51,18 +54,13 @@ const Navbar: React.FC<NavbarProps> = () => {
 			</div>
 			{links.map((link) => (
 				<Button
+					key={link.testId}
 					to={link.path}
 					text={link.name}
-					testId={link.name}
+					testId={link.testId}
 					className={loader.load("nav-link")}
 				/>
 			))}
-			{/* <Button
-				to="/"
-				text="Home"
-				testId="home"
-				className={loader.load("nav-link")}
-			/> */}
 
 			<div className={loader.load("slider")} />
 

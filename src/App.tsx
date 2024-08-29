@@ -6,6 +6,7 @@ import Dashboard from "pages/Dashboard";
 import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
 import { AuthenticateLayout } from "features/authenticate";
+import About from "pages/About/About";
 import Profile from "pages/Profile/Profile";
 
 const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
 				}
 			/>
 		),
+	},
+	{
+		path: "/about",
+		element: <CommonLayout page={<About />} />,
 	},
 ]);
 

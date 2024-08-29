@@ -19,6 +19,6 @@
 	}
 
 	.body {
-		padding-top: $navbar-height;
+		padding-top: calc($navbar-height + 1rem);
 	}
 }
