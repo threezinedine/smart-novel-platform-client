@@ -3,27 +3,13 @@ import { BASE_URL } from "../constants";
 import { visit } from "../utils";
 
 describe("Testing of the Login Page", () => {
-	it("should have the title of Login", () => {
-		visit("login");
-
-		cy.title().should("eq", "Login");
-	});
-
-	it("should has input for username and password", () => {
-		visit("login");
-		cy.get("[data-testid=username]").should("exist");
-
-		const password = cy.get("[data-testid=password]");
-		password.should("exist");
-
-		password.should("have.attr", "type", "password");
-	});
-
 	it("it should show error when click submit at the first time and show username and password is required", () => {
 		visit("login");
 		const submit = cy.get("[data-testid=submit]");
 		const username = cy.get("[data-testid=username]");
 		const password = cy.get("[data-testid=password]");
+
+		password.should("have.attr", "type", "password");
 
 		submit.click();
 

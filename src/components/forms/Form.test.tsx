@@ -31,6 +31,12 @@ describe("Form testing", () => {
 			testId: "checkLessThan",
 			validations: [MinLengthRule(5)],
 		},
+		{
+			name: "default",
+			testId: "default",
+			default: "default",
+			readonly: true,
+		},
 	];
 
 	it("should have the list of inputs for list of incomming props", () => {
@@ -111,6 +117,7 @@ describe("Form testing", () => {
 			password: "",
 			checkLessThan: "testingminlength",
 			valid: "",
+			default: "default",
 		});
 	});
 
@@ -141,5 +148,13 @@ describe("Form testing", () => {
 		fireEvent.blur(screen.getByTestId("password-valid"));
 
 		expect(screen.getByTestId("error")).toBeInTheDocument();
+	});
+
+	it("should have the default value for the default input", () => {
+		renderWithMemoryRoute(<Form inputs={inputs} />);
+
+		const defaultInput = screen.getByTestId("default");
+		expect(defaultInput.getAttribute("value")).toBe("default");
+		expect(defaultInput.getAttribute("readonly")).toBe("");
 	});
 });

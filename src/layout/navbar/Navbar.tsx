@@ -11,12 +11,15 @@ import { useNavigate } from "react-router-dom";
 import ToastService from "services/toast";
 import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { NavlinkInfo } from "./types";
+import Avatar from "features/avatar";
+import { useAvatarStore } from "features/profile";
 
 const loader = new CssLoader(styles);
 const toast = ToastService.getInstance();
 
 const Navbar: React.FC<NavbarProps> = () => {
 	const authState: AuthenticateStore = useAuthenticateStore((state) => state);
+	const avatar_url = useAvatarStore((state) => state.avatar_url);
 	const navigate = useNavigate();
 
 	const onLogout = () => {
@@ -91,7 +94,11 @@ const Navbar: React.FC<NavbarProps> = () => {
 							onClick={() => navigate("/profile")}
 							className={loader.load("user")}
 						>
-							{authState.username}
+							<Avatar
+								className={loader.load("avatar")}
+								avatar_url={avatar_url}
+							/>
+							<span>{authState.username}</span>
 						</div>
 						<Button
 							text="Logout"

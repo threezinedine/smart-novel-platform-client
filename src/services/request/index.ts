@@ -1,6 +1,7 @@
 import { JSONDict } from "data/styles";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { ResponseErrorContent } from "./types";
+import { AuthenticateLocalStorage } from "features/authenticate";
 
 const host = process.env.REACT_APP_SERVER_URL;
 
@@ -41,10 +42,11 @@ class Response {
 class Client {
 	private m_Axios: AxiosInstance = instance;
 
-	async get(url: string, token?: string) {
+	async get(url: string, auth?: boolean) {
 		let config: AxiosRequestConfig = {};
 
-		if (token) {
+		if (auth) {
+			const token = AuthenticateLocalStorage.getToken();
 			config.headers = {};
 			config.headers.Authorization = `Bearer ${token}`;
 		}
@@ -66,7 +68,30 @@ class Client {
 			const response = await this.m_Axios.post(url, body);
 			return new Response(response.status, response.data);
 		} catch (error: any) {
-			return new Response(error.response.status, error.response.data);
+			if (error instanceof AxiosError) {
+				return new Response(Number(error.code), error.response?.data);
+			}
+			return new Response(600, error);
+		}
+	}
+
+	async put<T>(url: string, body: T, auth?: boolean) {
+		let config: AxiosRequestConfig = {};
+
+		if (auth) {
+			const token = AuthenticateLocalStorage.getToken();
+			config.headers = {};
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+
+		try {
+			const response = await this.m_Axios.put(url, body, config);
+			return new Response(response.status, response.data);
+		} catch (error: any) {
+			if (error instanceof AxiosError) {
+				return new Response(Number(error.code), error.response?.data);
+			}
+			return new Response(600, error);
 		}
 	}
 }

@@ -22,6 +22,7 @@
 		label {
 			text-transform: capitalize;
 			font-style: italic;
+			user-select: none;
 		}
 
 		input {
@@ -37,6 +38,11 @@
 			font-style: italic;
 			outline: none;
 			padding: $padding-top-bottom 0.8rem;
+
+			&[readonly] {
+				color: var(--color-7);
+				cursor: not-allowed;
+			}
 
 			&::placeholder {
 				font-style: italic;

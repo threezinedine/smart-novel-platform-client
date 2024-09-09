@@ -1,0 +1,20 @@
+.avatar-container {
+	$avatar-size: var(--avatar-size);
+
+	user-select: none;
+
+	.avatar,
+	.avatar-default {
+		width: $avatar-size;
+		height: $avatar-size;
+		border-radius: 50%;
+	}
+
+	.avatar-default {
+		display: flex;
+		text-transform: capitalize;
+		background-color: var(--color-3);
+		justify-content: center;
+		align-items: center;
+	}
+}

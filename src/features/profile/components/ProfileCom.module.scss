@@ -1,0 +1,38 @@
+.container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.content {
+		display: flex;
+		width: 100%;
+		margin: auto;
+
+		.avatar,
+		.profile-com {
+			flex: 1;
+		}
+
+		.avatar {
+			$avatar-size: 200px;
+
+			margin-top: 2rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border-radius: 50%;
+			margin-right: 20px;
+
+			img {
+				width: $avatar-size;
+				height: $avatar-size;
+				border-radius: 50%;
+			}
+
+			.avatar-upload {
+				margin-top: 2rem;
+			}
+		}
+	}
+}

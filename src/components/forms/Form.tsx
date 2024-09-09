@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormProps from "./Props";
 import { FormData, FormError } from "./types";
 import CssLoader from "utils/cssloader";
@@ -9,11 +9,19 @@ const loader = new CssLoader(styles);
 
 const Form: React.FC<FormProps> = ({ title, inputs, submitFunc }) => {
 	const [values, setValues] = React.useState(
-		inputs.reduce(
-			(acc, input) => ({ ...acc, [input.name]: "" }),
-			{} as FormData
-		)
+		inputs.reduce((acc, input) => {
+			return { ...acc, [input.name]: input.default || "" };
+		}, {} as FormData)
 	);
+
+	useEffect(() => {
+		const newValues = inputs.reduce((acc, input) => {
+			return { ...acc, [input.name]: input.default || "" };
+		}, {} as FormData);
+
+		setValues(JSON.parse(JSON.stringify(newValues)));
+	}, [inputs]);
+
 	const [errors, setErrors] = React.useState(
 		inputs.reduce(
 			(acc, input) => ({ ...acc, [input.name]: "" }),
@@ -60,7 +68,7 @@ const Form: React.FC<FormProps> = ({ title, inputs, submitFunc }) => {
 			{inputs.map((input, index) => {
 				return (
 					<div key={index} className={loader.load("input")}>
-						<label>{input.name}</label>
+						<label>{input.label || input.name}</label>
 						<input
 							data-testid={input.testId}
 							type={input.type || "text"}
@@ -74,6 +82,7 @@ const Form: React.FC<FormProps> = ({ title, inputs, submitFunc }) => {
 									[input.name]: e.target.value,
 								})
 							}
+							{...(input.readonly && { readOnly: true })}
 							onBlur={() => onBlur(input.name)}
 						/>
 						{errors[input.name] && (

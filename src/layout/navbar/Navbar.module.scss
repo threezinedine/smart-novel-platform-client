@@ -33,19 +33,27 @@
 	}
 
 	.authen {
+		$avatar-size: 2.5rem;
+
 		display: flex;
 		align-items: center;
 		margin-left: $gap;
 		gap: $gap;
 
 		.user {
+			display: flex;
 			user-select: none;
 			cursor: pointer;
 			min-width: 7rem;
 			text-align: right;
+			align-items: center;
 
 			&:hover {
 				color: var(--color-9);
+			}
+
+			.avatar {
+				margin: 0 0.5rem;
 			}
 		}
 	}

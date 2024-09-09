@@ -28,7 +28,6 @@ class ToastService {
 
 		if (message.duration) {
 			setTimeout(() => {
-				console.log("removing message", message, this.messages);
 				this.removeMessage(message);
 			}, message.duration);
 		}

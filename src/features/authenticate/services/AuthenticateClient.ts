@@ -1,7 +1,6 @@
 import Client from "services/request";
 import { FormData } from "components/forms";
 import { AuthenState, LoginModel } from "../data";
-import AuthenticateLocalStorage from "../utils/AuthenticateLocalStorage";
 
 class AuthenticateClient extends Client {
 	async login(data: FormData) {
@@ -14,13 +13,7 @@ class AuthenticateClient extends Client {
 	}
 
 	async getInfo() {
-		const token = AuthenticateLocalStorage.getToken();
-
-		if (!token) {
-			return null;
-		}
-
-		const response = await this.get("users/user-info", token);
+		const response = await this.get("users/user-info", true);
 
 		if (!response.isSuccess()) {
 			return null;
