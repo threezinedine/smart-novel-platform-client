@@ -34,7 +34,6 @@ const ProfileCom: React.FC<ProfileProps> = () => {
 
 			if (response.isSuccess()) {
 				const profile = response.getData<ProfileSchema>();
-				setAvatar(profile.avatar_url);
 				setProfile({ ...profile });
 			}
 		};

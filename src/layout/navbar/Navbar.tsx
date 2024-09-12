@@ -5,7 +5,7 @@ import useAuthenticateStore, {
 	AuthenticateStore,
 } from "features/authenticate/stores/type";
 import ThemToggle from "features/theme";
-import styles from "./Navbar.module.scss";
+import styles from "./styles.module.scss";
 import CssLoader from "utils/cssloader";
 import { useNavigate } from "react-router-dom";
 import ToastService from "services/toast";
@@ -17,7 +17,7 @@ import { useAvatarStore } from "features/profile";
 const loader = new CssLoader(styles);
 const toast = ToastService.getInstance();
 
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 	const authState: AuthenticateStore = useAuthenticateStore((state) => state);
 	const avatar_url = useAvatarStore((state) => state.avatar_url);
 	const navigate = useNavigate();
@@ -70,7 +70,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 			<ThemToggle />
 
 			<div>
-				{!authState.authorized && (
+				{!authState.authorized || registerPage ? (
 					<>
 						<Button
 							to="/login"
@@ -86,8 +86,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 							secondary
 						/>
 					</>
-				)}
-				{authState.authorized && (
+				) : (
 					<div className={loader.load("authen")}>
 						<div
 							data-testid="user"

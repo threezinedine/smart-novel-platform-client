@@ -1,0 +1,53 @@
+.drag-board {
+	display: flex;
+	user-select: none;
+
+	.drag-list {
+		background-color: var(--color-2);
+		border-radius: 1rem;
+		padding: 1rem;
+		flex: 1;
+		height: fit-content;
+
+		& + .drag-list {
+			margin-left: 1rem;
+		}
+
+		.item-container {
+			& + .item-container,
+			& + #temp,
+			#temp + & {
+				margin-top: 0.7rem;
+			}
+		}
+
+		.item {
+			display: flex;
+			align-items: center;
+			background-color: var(--color-3);
+			border-radius: 1rem;
+			padding: 0.3rem 0.7rem;
+
+			&.dragging {
+				position: fixed;
+				cursor: grab;
+				box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+					rgba(0, 0, 0, 0.12) 0px -12px 30px,
+					rgba(0, 0, 0, 0.12) 0px 4px 6px,
+					rgba(0, 0, 0, 0.17) 0px 12px 13px,
+					rgba(0, 0, 0, 0.09) 0px -3px 5px;
+			}
+
+			.item-sign {
+				margin: 0.5rem;
+				padding: 0.1rem;
+				margin-right: 1rem;
+				cursor: pointer;
+			}
+
+			.item-content {
+				padding: 1rem;
+			}
+		}
+	}
+}

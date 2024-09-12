@@ -4,18 +4,21 @@ import LoginClient from "../services/AuthenticateClient";
 import { AuthenState } from "../data";
 import ToastService from "services/toast";
 import useAuthenticateStore from "../stores/type";
+import { useAvatarStore } from "features/profile";
+import ProfileClient from "features/profile/services/ProfileClient";
+import { ProfileSchema } from "features/profile/data/types";
 
 const AuthenticateLayout: React.FC<AuthenticateLayoutProps> = ({
 	children,
 	roles,
+	auth,
 }) => {
 	const authenticateStore = useAuthenticateStore();
-
+	const setAvatar = useAvatarStore((state) => state.setAvatar);
 	const client = new LoginClient();
 	const toast = ToastService.getInstance();
 	let isAuthorized = false;
 
-	// if (!authenticateStore.authorized) {
 	useEffect(() => {
 		client.getInfo().then((response: AuthenState | null) => {
 			if (response) {
@@ -30,21 +33,32 @@ const AuthenticateLayout: React.FC<AuthenticateLayoutProps> = ({
 				authenticateStore.authorized && authenticateStore.logout();
 			}
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+
+		new ProfileClient().getProfile().then((response) => {
+			if (response) {
+				const profile = response.getData<ProfileSchema>();
+				setAvatar(profile.avatar_url);
+			}
+		});
+	});
 
 	if (authenticateStore.authorized && roles) {
 		isAuthorized = roles.includes(authenticateStore.role || "");
 	} else {
 		isAuthorized = true;
 	}
-	// }
 
 	return (
 		<div>
-			{authenticateStore.authorized && isAuthorized ? (
-				<div data-testid="authorized">{children}</div>
-			): <div data-testid="unauthorized">Not authorized</div>}
+			{auth ? (
+				authenticateStore.authorized && isAuthorized ? (
+					<div data-testid="authorized">{children}</div>
+				) : (
+					<div data-testid="unauthorized">Not authorized</div>
+				)
+			) : (
+				children
+			)}
 		</div>
 	);
 };

@@ -5,7 +5,6 @@ import Login from "pages/Login/Login";
 import Dashboard from "pages/Dashboard";
 import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
-import { AuthenticateLayout } from "features/authenticate";
 import About from "pages/About/About";
 import Profile from "pages/Profile/Profile";
 
@@ -16,47 +15,23 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <CommonLayout page={<Login />} />,
+		element: <CommonLayout registerForm page={<Login />} />,
 	},
 	{
 		path: "/dashboard",
-		element: (
-			<CommonLayout
-				page={
-					<AuthenticateLayout>
-						<Dashboard />
-					</AuthenticateLayout>
-				}
-			/>
-		),
+		element: <CommonLayout auth page={<Dashboard />} />,
 	},
 	{
 		path: "/register",
-		element: <CommonLayout page={<Register />} />,
+		element: <CommonLayout registerForm page={<Register />} />,
 	},
 	{
 		path: "/admin",
-		element: (
-			<CommonLayout
-				page={
-					<AuthenticateLayout roles={["admin"]}>
-						<Admin />
-					</AuthenticateLayout>
-				}
-			/>
-		),
+		element: <CommonLayout auth roles={["admin"]} page={<Admin />} />,
 	},
 	{
 		path: "/profile",
-		element: (
-			<CommonLayout
-				page={
-					<AuthenticateLayout>
-						<Profile />
-					</AuthenticateLayout>
-				}
-			/>
-		),
+		element: <CommonLayout auth page={<Profile />} />,
 	},
 	{
 		path: "/about",
