@@ -7,6 +7,7 @@ import Register from "pages/Register/Register";
 import Admin from "pages/Admin";
 import About from "pages/About/About";
 import Profile from "pages/Profile/Profile";
+import Todo from "pages/Todo";
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
 	{
 		path: "/about",
 		element: <CommonLayout page={<About />} />,
+	},
+	{
+		path: "/todo",
+		element: <CommonLayout auth page={<Todo />} />,
 	},
 ]);
 

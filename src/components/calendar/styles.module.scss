@@ -1,0 +1,36 @@
+.container {
+	display: flex;
+	justify-content: center;
+
+	.month-nav {
+		.nav .month,
+		.year {
+			user-select: none;
+			border-radius: 0.5rem;
+			text-align: center;
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--color-3);
+			}
+		}
+
+		.year {
+			padding: 0.8rem;
+		}
+
+		.nav {
+			display: flex;
+			align-items: center;
+
+			.month {
+				padding: 0.4rem 1rem;
+			}
+
+			.nav-btn {
+				cursor: pointer;
+				padding: 0.4rem;
+			}
+		}
+	}
+}

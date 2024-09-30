@@ -1,0 +1,42 @@
+.modal-container {
+	.container {
+		position: fixed;
+		display: flex;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1000;
+		align-items: center;
+		justify-content: center;
+
+		&.display-none {
+			display: none !important;
+		}
+
+		.background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: var(--color-8);
+			opacity: 0.3;
+		}
+
+		.modal-content {
+			position: relative;
+			margin: auto;
+			width: fit-content;
+			height: fit-content;
+			background-color: var(--color-4);
+			padding: 1.5rem;
+			border-radius: 0.5rem;
+			min-width: 30%;
+
+			.content {
+				margin: 1rem 0;
+			}
+		}
+	}
+}

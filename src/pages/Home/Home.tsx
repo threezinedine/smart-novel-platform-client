@@ -3,6 +3,8 @@ import styles from "./Home.module.scss";
 import CssLoader from "utils/cssloader";
 import FileUpload from "components/file-upload";
 import DragBoard from "components/drag-board";
+import Modal from "components/modal";
+import Calendar from "components/calendar";
 
 const loader = new CssLoader(styles);
 
@@ -10,6 +12,8 @@ const Home: React.FC = () => {
 	const onChange = (ids: string[][]) => {
 		console.log(ids);
 	};
+
+	const [chosenDate, setChosenDate] = React.useState<Date | null>(new Date());
 
 	return (
 		<div className={loader.load("home")}>
@@ -41,6 +45,15 @@ const Home: React.FC = () => {
 					onChange={onChange}
 				/>
 			</div>
+			<Modal btnText="Open modal" btnSecondary>
+				<div>{chosenDate?.toString()}</div>
+				<Calendar
+					date={chosenDate}
+					onDateChange={(date: Date) => {
+						setChosenDate(date);
+					}}
+				/>
+			</Modal>
 		</div>
 	);
 };

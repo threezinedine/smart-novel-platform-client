@@ -32,3 +32,13 @@ export const randomNumber = (length: number): string => {
 	}
 	return result;
 };
+
+export const login = (username: string, password: string) => {
+	visit("login");
+	cy.get("[data-testid=username]").type(username);
+	cy.get("[data-testid=password]").type(password);
+
+	cy.get("[data-testid=submit]").click();
+
+	cy.get("[data-testid=toast-success]").should("exist");
+};
