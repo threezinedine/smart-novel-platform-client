@@ -3,4 +3,9 @@ interface CalendarProps {
 	onDateChange: (date: Date) => void;
 }
 
-export type { CalendarProps };
+interface CalendarViewProps {
+	date: Date;
+	onDateChange: (date: Date) => void;
+}
+
+export type { CalendarProps, CalendarViewProps };

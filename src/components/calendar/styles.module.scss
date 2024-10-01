@@ -1,6 +1,8 @@
 .container {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 
 	.month-nav {
 		.nav .month,
@@ -30,6 +32,47 @@
 			.nav-btn {
 				cursor: pointer;
 				padding: 0.4rem;
+			}
+		}
+	}
+
+	$size: 2rem;
+
+	.month-view {
+		user-select: none;
+
+		.week-day {
+			margin-bottom: 0.5rem;
+
+			.week-day-element {
+				padding: 0.5rem 0;
+				text-align: center;
+				width: $size;
+			}
+		}
+
+		.week {
+			margin: 0.5rem 0;
+		}
+
+		.day {
+			padding: 0.5rem;
+			width: $size;
+			height: $size;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 50%;
+
+			&:hover {
+				background-color: var(--color-3);
+			}
+
+			&.outline {
+				color: var(--color-8);
+			}
+
+			&.chosen:not(.outline) {
+				background-color: var(--color-3);
 			}
 		}
 	}

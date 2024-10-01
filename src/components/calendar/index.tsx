@@ -1,3 +1,3 @@
-import Calendar from "./CustomCalendar";
+import Calendar from "./Calendar";
 
 export default Calendar;
