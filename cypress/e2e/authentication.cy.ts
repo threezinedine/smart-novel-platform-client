@@ -38,6 +38,7 @@ describe("Testing of the Login Page", () => {
 		cy.get("[data-testid=unauthorized]").should("not.exist");
 		cy.get("[data-testid=authorized]").should("exist");
 
+		cy.get("[data-testid=username]").click();
 		cy.get("[data-testid=logout-btn]").click();
 		cy.url().should("include", "login");
 		cy.get("[data-testid=toast-success]").should("exist");

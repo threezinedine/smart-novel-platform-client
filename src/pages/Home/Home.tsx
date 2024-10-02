@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./Home.module.scss";
 import CssLoader from "utils/cssloader";
-import FileUpload from "components/file-upload";
 import DragBoard from "components/drag-board";
 import Modal from "components/modal";
 import Calendar from "components/calendar";
+import Dropdown from "components/dropdown";
+import Button from "components/buttons";
 
 const loader = new CssLoader(styles);
 
@@ -18,14 +19,6 @@ const Home: React.FC = () => {
 	return (
 		<div className={loader.load("home")}>
 			Home page
-			<FileUpload
-				id="file-upload"
-				text="Upload image"
-				onFileSelected={(file) => {
-					console.log(file);
-				}}
-				secondary
-			/>
 			<div className={loader.load("test-drag-list")}>
 				<DragBoard
 					data={[
@@ -54,6 +47,20 @@ const Home: React.FC = () => {
 					}}
 				/>
 			</Modal>
+			<Dropdown
+				items={[
+					{
+						to: "/",
+						text: "Home",
+					},
+					{
+						to: "/dashboard",
+						text: "Dashboard",
+					},
+				]}
+			>
+				<Button />
+			</Dropdown>
 		</div>
 	);
 };

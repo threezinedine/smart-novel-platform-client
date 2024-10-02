@@ -24,6 +24,13 @@ const AuthenticateLayout: React.FC<AuthenticateLayoutProps> = ({
 			if (response) {
 				!authenticateStore.authorized &&
 					authenticateStore.login(response.username, response.role);
+
+				new ProfileClient().getProfile().then((response) => {
+					if (response) {
+						const profile = response.getData<ProfileSchema>();
+						setAvatar(profile.avatar_url);
+					}
+				});
 			} else {
 				toast.addMessage({
 					message: "Not authorized",
@@ -31,13 +38,6 @@ const AuthenticateLayout: React.FC<AuthenticateLayoutProps> = ({
 					duration: 1000,
 				});
 				authenticateStore.authorized && authenticateStore.logout();
-			}
-		});
-
-		new ProfileClient().getProfile().then((response) => {
-			if (response) {
-				const profile = response.getData<ProfileSchema>();
-				setAvatar(profile.avatar_url);
 			}
 		});
 	});

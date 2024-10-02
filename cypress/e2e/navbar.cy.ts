@@ -41,7 +41,8 @@ describe("Navbar", () => {
 		cy.wait(100);
 		cy.get("[data-testid=login-btn]").should("not.exist");
 
-		cy.get("[data-testid=user").click();
+		cy.get("[data-testid=username").click();
+		cy.get("[data-testid=profile-btn").click();
 		cy.url().should("include", "/profile");
 	});
 

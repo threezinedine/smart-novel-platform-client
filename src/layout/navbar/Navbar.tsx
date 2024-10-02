@@ -13,6 +13,7 @@ import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { NavlinkInfo } from "./types";
 import Avatar from "features/avatar";
 import { useAvatarStore } from "features/profile";
+import Dropdown from "components/dropdown";
 
 const loader = new CssLoader(styles);
 const toast = ToastService.getInstance();
@@ -29,7 +30,6 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 			duration: 1000,
 		});
 		authState.logout();
-		navigate("/login");
 	};
 
 	const links: NavlinkInfo[] = [
@@ -88,24 +88,35 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 					</>
 				) : (
 					<div className={loader.load("authen")}>
-						<div
-							data-testid="user"
-							onClick={() => navigate("/profile")}
-							className={loader.load("user")}
+						<Dropdown
+							gap={5}
+							items={[
+								{
+									text: "Profile",
+									to: "/profile",
+									testId: "profile-btn",
+								},
+								{
+									text: "Logout",
+									to: "/login",
+									callback: onLogout,
+									testId: "logout-btn",
+								},
+							]}
 						>
-							<Avatar
-								className={loader.load("avatar")}
-								avatar_url={avatar_url}
-							/>
-							<span>{authState.username}</span>
-						</div>
-						<Button
-							text="Logout"
-							onClick={onLogout}
-							testId="logout-btn"
-							className={loader.load("nav-link")}
-							secondary
-						/>
+							<div
+								data-testid="user"
+								className={loader.load("user")}
+							>
+								<Avatar
+									className={loader.load("avatar")}
+									avatar_url={avatar_url}
+								/>
+								<span data-testid="username">
+									{authState.username}
+								</span>
+							</div>
+						</Dropdown>
 					</div>
 				)}
 			</div>
