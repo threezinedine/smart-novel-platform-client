@@ -1,0 +1,17 @@
+.language {
+	$size: 1rem;
+	padding: 1rem;
+	margin-left: 1rem;
+	width: $size;
+	height: $size;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: var(--color-2);
+
+	&:hover {
+		background-color: var(--color-3);
+	}
+}

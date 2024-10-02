@@ -52,7 +52,10 @@ const Dropdown: React.FC<DropdownProps> = ({ children, items, gap }) => {
 					menu.style.left = `${triggerRect.width / 2}px`;
 				}
 			}
-		} else if (menu && !menu.contains(event.target as HTMLElement)) {
+			// } else if (menu && !menu.contains(event.target as HTMLElement)) {
+			// 	menu?.classList.remove(loader.load("show"));
+			// }
+		} else {
 			menu?.classList.remove(loader.load("show"));
 		}
 	};
@@ -81,18 +84,23 @@ const Dropdown: React.FC<DropdownProps> = ({ children, items, gap }) => {
 		<div className={loader.load("dropdown")} ref={ref}>
 			<div className={loader.load("menu")} data-testid="dropdown-menu">
 				{items?.map((item, index) => (
-					<div key={index} className={loader.load("item")}>
-						<div
-							className={loader.load("item-content")}
-							data-testid={item.testId}
-							onClick={() => {
-								item.callback && item.callback();
-								item.to && navigate(item.to);
-							}}
-						>
-							{item.text}
+					<React.Fragment key={index}>
+						{item.divider && (
+							<div className={loader.load("divider")} />
+						)}
+						<div className={loader.load("item")}>
+							<div
+								className={loader.load("item-content")}
+								data-testid={item.testId}
+								onClick={() => {
+									item.callback && item.callback();
+									item.to && navigate(item.to);
+								}}
+							>
+								{item.text}
+							</div>
 						</div>
-					</div>
+					</React.Fragment>
 				))}
 			</div>
 			<div className={loader.load("trigger")}>{children}</div>

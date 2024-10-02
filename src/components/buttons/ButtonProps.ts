@@ -1,5 +1,7 @@
+import React from "react";
+
 interface ButtonProps {
-	text?: string;
+	text?: string | React.ReactElement;
 	onClick?: () => void;
 	to?: string;
 	testId?: string;

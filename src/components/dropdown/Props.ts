@@ -3,6 +3,7 @@ interface DropdownItemData {
 	testId?: string;
 	to?: string;
 	callback?: () => void;
+	divider?: boolean;
 }
 
 interface DropdownProps {

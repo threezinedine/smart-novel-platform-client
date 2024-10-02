@@ -14,6 +14,7 @@ import { NavlinkInfo } from "./types";
 import Avatar from "features/avatar";
 import { useAvatarStore } from "features/profile";
 import Dropdown from "components/dropdown";
+import { LanguageSelection, LangText } from "features/language";
 
 const loader = new CssLoader(styles);
 const toast = ToastService.getInstance();
@@ -34,7 +35,8 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 
 	const links: NavlinkInfo[] = [
 		{
-			name: "Home",
+			// name: "Home",
+			name: <LangText text="home" />,
 			path: "/",
 			testId: "home",
 		},
@@ -42,6 +44,11 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 			name: "Dashboard",
 			path: "/dashboard",
 			testId: "dashboard",
+		},
+		{
+			name: "Todo",
+			path: "/todo",
+			testId: "todo",
 		},
 		{
 			name: "About",
@@ -68,6 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 			<div className={loader.load("slider")} />
 
 			<ThemToggle />
+			<LanguageSelection />
 
 			<div>
 				{!authState.authorized || registerPage ? (
@@ -97,6 +105,7 @@ const Navbar: React.FC<NavbarProps> = ({ registerPage }) => {
 									testId: "profile-btn",
 								},
 								{
+									divider: true,
 									text: "Logout",
 									to: "/login",
 									callback: onLogout,

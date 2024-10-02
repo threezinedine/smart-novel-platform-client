@@ -1,5 +1,7 @@
+import React from "react";
+
 interface NavlinkInfo {
-	name: string;
+	name: string | React.ReactElement;
 	path: string;
 	testId: string;
 }
